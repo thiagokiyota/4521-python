@@ -6,6 +6,10 @@ from Models.Model import app, db
 
 app.register_blueprint(usuarios)
 
+@app.route("/api")
+def api():
+    return jsonify({"message":"Bem vindos a explicação sobre APIs", "version":1})
+
 @app.route("/")
 def hello():
     return render_template("index.html")
