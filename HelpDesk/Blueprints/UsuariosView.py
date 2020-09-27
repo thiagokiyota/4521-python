@@ -16,7 +16,7 @@ def usuarios_listar():
     except Exception as e:
         return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
 
-@usuarios.route("/usuarios/",methods=["POST"])
+@usuarios.route("/usuarios",methods=["POST"])
 def usuarios_cadastrar():
     try:
         res = request.get_json()
@@ -28,7 +28,7 @@ def usuarios_cadastrar():
         db.session.rollback()
         return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
 
-@usuarios.route("/usuarios/<int:id>/",methods=["PUT"])
+@usuarios.route("/usuarios/<int:id>",methods=["PUT"])
 def usuarios_atualizar(id):
     try:
         user = Usuarios.query.filter(Usuarios.id==id).first()
@@ -43,7 +43,7 @@ def usuarios_atualizar(id):
         db.session.rollback()
         return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
 
-@usuarios.route("/usuarios/<int:id>/",methods=["DELETE"])
+@usuarios.route("/usuarios/<int:id>",methods=["DELETE"])
 def usuarios_deletar(id):
     try:
         user = Usuarios.query.filter(Usuarios.id==id).first()
