@@ -14,7 +14,17 @@ app.register_blueprint(users_routes)
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template(
+        'index.html',
+        title="Lista de nomes",
+        nomes=[
+            "João",
+            "Gabriel",
+            "Daniela",
+            "Alice",
+            "Edu"
+        ]
+    )
 
 @app.route("/api")
 def api():
