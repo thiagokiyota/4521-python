@@ -1,4 +1,9 @@
 # Ignore cache
+code/__pycache__/*
+code/grupos/__pycache__/*
+code/users/__pycache__/*
+code/mensagens/__pycache__/*
 HelpDesk/Blueprints/__pycache__/*
 HelpDesk/Models/__pycache__/*
 HelpDesk/banco.db
+.vscode/*
