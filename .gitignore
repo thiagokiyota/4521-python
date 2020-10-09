@@ -1,4 +1,5 @@
 # Ignore cache
+app/__pycache__/*
 app/R_docker/*
 app/R_jenkins/*
 code/__pycache__/*
