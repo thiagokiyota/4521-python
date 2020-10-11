@@ -13,8 +13,8 @@ def usuarios_listar():
         for u in users:
             dic['usuarios'].append({"id":u.id,"nome":u.nome,"email":u.email})
         return jsonify(dic)
-    except Exception as e:
-        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
+    except Exception as error:
+        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%error})
 
 @usuarios.route("/usuarios",methods=["POST"])
 def usuarios_cadastrar():
@@ -24,9 +24,9 @@ def usuarios_cadastrar():
         db.session.add(user)
         db.session.commit()
         return jsonify({"message":"Usuario cadastrado com sucesso"})
-    except Exception as e:
+    except Exception as error:
         db.session.rollback()
-        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
+        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%error})
 
 @usuarios.route("/usuarios/<int:id>",methods=["PUT"])
 def usuarios_atualizar(id):
@@ -39,9 +39,9 @@ def usuarios_atualizar(id):
         user = Usuarios.query.filter(Usuarios.id==id).first()
         user.__dict__.pop("_sa_instance_state",None)
         return jsonify(user.__dict__)
-    except Exception as e:
+    except Exception as error:
         db.session.rollback()
-        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
+        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%error})
 
 @usuarios.route("/usuarios/<int:id>",methods=["DELETE"])
 def usuarios_deletar(id):
@@ -50,9 +50,9 @@ def usuarios_deletar(id):
         db.session.delete(user)
         db.session.commit()
         return jsonify({"message":"Usuario deletado com sucesso!"})
-    except Exception as e:
+    except Exception as error:
         db.session.rollback()
-        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
+        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%error})
 
 @usuarios.route("/usuarios/<int:id>/")
 def usuarios_encontrar(id):
@@ -60,5 +60,5 @@ def usuarios_encontrar(id):
         user = Usuarios.query.filter(Usuarios.id==id).first()
         user.__dict__.pop("_sa_instance_state",None)
         return jsonify(user.__dict__)
-    except Exception as e:
-        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%e})
+    except Exception as error:
+        return jsonify({"status":1,"message":"Ocorreu um erro: %s"%error})

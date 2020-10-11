@@ -13,8 +13,8 @@ def getUsers():
     try:
         users = mongo_db.user.find()
         return Response(dumps(users), status=200, content_type="application/json")
-    except Exception as e:
-        return "Erro: %s" %(e)
+    except Exception as error:
+        return "Erro: %s" %(error)
 
 @users_routes.route("", methods=["POST"])
 def postUsers():
@@ -31,8 +31,8 @@ def postUsers():
             "message": "Usuário '%s' criado com sucesso!" %(user["name"])
         }
         return Response(dumps(response), status=201, content_type="application/json")
-    except Exception as e:
-        return "Erro %s" %(e)
+    except Exception as error:
+        return "Erro %s" %(error)
 
 @users_routes.route("", methods=["PATCH"])
 def patchUsers():
@@ -51,8 +51,8 @@ def patchUsers():
         else:
             response = { "message": "Usuário '%s' não foi encontrado!"%(user["name"]) }
             return Response(dumps(response), status=404, content_type="application/json")
-    except Exception as e:
-        return "Erro: %s" %(e)
+    except Exception as error:
+        return "Erro: %s" %(error)
 
 @users_routes.route("", methods=["DELETE"])
 def deleteUsers():
@@ -67,5 +67,5 @@ def deleteUsers():
         else:
             response = { "message": "Usuário '%s' não foi encontrado!"%(user["email"]) }
             return Response(dumps(response), status=404, content_type="application/json")
-    except Exception as e:
-        return "Erro: %s" %(e)
+    except Exception as error:
+        return "Erro: %s" %(error)

@@ -33,8 +33,8 @@ def provisionamento_novo():
         db = client["dexterops"]
         db.provisionamento.insert(j)
         return jsonify({"message":"Inserido no banco com sucesso"})
-    except Exception as e:
-        return jsonify({"message":"%s"%e})
+    except Exception as error:
+        return jsonify({"message":"%s"%error})
 
 @app.route("/provisionamento/lista/")
 def provisionamento_lista():
@@ -43,8 +43,8 @@ def provisionamento_lista():
         db = client["dexterops"]
         lista = db.provisionamento.find({"_id":1})[0]
         return jsonify(lista)
-    except Exception as e:
-        return jsonify({"message":"%s"%e})
+    except Exception as error:
+        return jsonify({"message":"%s"%error})
 
 if __name__ == "__main__":
     db.create_all()
