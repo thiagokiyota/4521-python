@@ -2,6 +2,7 @@
 app/__pycache__/*
 app/R_docker/*
 app/R_jenkins/*
+app/R_gitlab/*
 code/__pycache__/*
 code/grupos/__pycache__/*
 code/users/__pycache__/*
