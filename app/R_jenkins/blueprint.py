@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 import jenkins
 
 jenkins_routes = Blueprint("jenkins", __name__, url_prefix="/jenkins")
 
 @jenkins_routes.route("")
 def index():
+    if not "logged" in session or not session["logged"]:
+        return redirect(url_for('index'))
     try:
         jenkins_con = jenkins.Jenkins(
             "http://192.168.0.200:8080",
@@ -24,6 +26,8 @@ def index():
 
 @jenkins_routes.route("/update/<string:job_name>")
 def update(job_name):
+    if not "logged" in session or not session["logged"]:
+        return redirect(url_for('index'))
     try:
         jenkins_con = jenkins.Jenkins(
             "http://192.168.0.200:8080",
@@ -41,6 +45,8 @@ def update(job_name):
 
 @jenkins_routes.route("/reconfig", methods=["POST"])
 def reconfig():
+    if not "logged" in session or not session["logged"]:
+        return redirect(url_for('index'))
     data = request.form
     try:
         jenkins_con = jenkins.Jenkins(
@@ -55,6 +61,8 @@ def reconfig():
 
 @jenkins_routes.route("/build/<string:job_name>")
 def build(job_name):
+    if not "logged" in session or not session["logged"]:
+        return redirect(url_for('index'))
     try:
         jenkins_con = jenkins.Jenkins(
             "http://192.168.0.200:8080",
