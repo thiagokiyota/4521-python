@@ -43,6 +43,19 @@
         </div>
     </nav>
     {% endblock nav %}
-    {% block content %}{% endblock content %}
+    {% block content %}
+        {% block alert %}
+            {% with alerts = get_flashed_messages(with_categories=true) %}
+                {% for category, message in alerts %}
+                    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-level="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endwith %}
+        {% endblock alert %}
+    {% endblock content %}
 </body>
 </html>

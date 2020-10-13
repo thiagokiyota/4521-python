@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Blueprint, render_template, redirect, url_for, session
+from flask import Blueprint, render_template, redirect, url_for, session, current_app, flash
 import docker
 
 docker_routes = Blueprint("docker", __name__, url_prefix="/docker")
@@ -18,8 +18,10 @@ def index():
             "nome": container.name,
             "status": container.status
         }
+        current_app.logger.info("Container encontrado com sucesso!")
     except Exception as error:
         flask_app = None
+        current_app.logger.info("Container não encontrado.")
     return render_template("docker.html", container=flask_app)
 
 @docker_routes.route("/start")
@@ -30,8 +32,11 @@ def start():
         docker_con = docker.DockerClient("192.168.0.200:2376")
         container = docker_con.containers.get("flask-app")
         container.start()
+        current_app.logger.info("Container iniciado com sucesso.")
+        flash("Container iniciado com sucesso", "success")
     except Exception as error:
-        flask_app = None
+        current_app.logger.info("Container não foi iniciado.")
+        flash("Container não foi iniciado.", "danger")
     return redirect(url_for('docker.index'))
 
 @docker_routes.route("/stop")
@@ -42,6 +47,9 @@ def stop():
         docker_con = docker.DockerClient("192.168.0.200:2376")
         container = docker_con.containers.get("flask-app")
         container.stop()
+        current_app.logger.info("Container parado com sucesso.")
+        flash("Container parado com sucesso", "success")
     except Exception as error:
-        flask_app = None
+        current_app.logger.info("Container não foi parado.")
+        flash("Container não foi parado.", "danger")
     return redirect(url_for('docker.index'))

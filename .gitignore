@@ -12,3 +12,5 @@ HelpDesk/Blueprints/__pycache__/*
 HelpDesk/Models/__pycache__/*
 HelpDesk/banco.db
 .vscode/*
+app.log
+ref.log
